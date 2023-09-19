@@ -29,7 +29,7 @@ pipeline {
                 withEnv(["GOOGLE_APPLICATION_CREDENTIALS=${WORKSPACE}\\smooth-league-275317-eafc1a750e38.json"]) {
                     bat 'terraform init -no-color'
                     bat 'terraform validate -no-color'
-                    bat 'bat "terraform plan -var-file=${params.TFVARS_FILE}.tfvars -out=tfplan -no-color"
+                    bat 'bat "terraform plan -var-file=${params.TFVARS_FILE}.tfvars -out=tfplan"
 '
                 }
             }
