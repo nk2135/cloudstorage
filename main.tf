@@ -1,8 +1,8 @@
 resource "google_storage_bucket" "main_bucket"{
-    name = var.bucket_name
-    location = var.location
-    storage_class = var.storage_class
-    labels = var.labels
+    name                = var.bucket_name
+    location            = var.location
+    storage_class       = var.storage_class
+    labels              = var.labels
 
         versioning {
           enabled = var.versioning
@@ -45,8 +45,8 @@ dynamic "cors"{
 
 resource "google_storage_bucket_iam_binding" "bucket_iam" {
 
-    for_each = var.bucket_iam_bindings  
-    bucket = google_storage_bucket.main_bucket.name
-    members = each.value.members
+    for_each        = var.bucket_iam_bindings  
+    bucket          = google_storage_bucket.main_bucket.name
+    members         = each.value.members
 }
   
