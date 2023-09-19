@@ -1,12 +1,12 @@
 pipeline {
     agent any
 
-    parameters {
-        choice(name: 'TFVARS_FILE', choices: ['cloudstorage'], description: 'Choose the .tfvars file to use')
-    }
-
     environment {
         GOOGLE_CREDENTIALS = credentials('gcloud')  // Jenkins credential ID for GCP
+    }
+    
+    parameters {
+        choice(name: 'APPLICATION_NAME', choices: ['cloudstorage'], description: 'Select application environment')
     }
 
     stages {
@@ -29,8 +29,7 @@ pipeline {
                 withEnv(["GOOGLE_APPLICATION_CREDENTIALS=${WORKSPACE}\\smooth-league-275317-eafc1a750e38.json"]) {
                     bat 'terraform init -no-color'
                     bat 'terraform validate -no-color'
-                    bat 'bat "terraform plan -var-file=${params.TFVARS_FILE}.tfvars -out=tfplan"
-'
+                    bat "terraform plan -var-file=params.${APPLICATION_NAME}.tfvars -out=tfplan -no-color"
                 }
             }
         }
@@ -44,7 +43,7 @@ pipeline {
         stage('Terraform Apply') {
             steps {
                 withEnv(["GOOGLE_APPLICATION_CREDENTIALS=${WORKSPACE}\\smooth-league-275317-eafc1a750e38.json"]) {
-                    bat 'terraform apply -auto-approve tfplan'
+                    bat "terraform apply -var-file=params.${APPLICATION_NAME}.tfvars -auto-approve tfplan"
                 }
             }
         }
