@@ -47,10 +47,10 @@ dynamic "cors" {
 
 #if you are using IAM bindings:
 
-resource "google_storage_bucket_iam_binding" "bucket_iam" {
+/*resource "google_storage_bucket_iam_binding" "bucket_iam" {
 
     for_each        = var.bucket_iam_bindings  
     bucket          = google_storage_bucket.main_bucket.name
     members         = each.value.members
-}
+}*/
   
