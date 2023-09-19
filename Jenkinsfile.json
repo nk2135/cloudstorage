@@ -16,36 +16,38 @@ pipeline {
             steps {
                 script {
                     // Save the GCP service account key from Jenkins credentials to a file
-                    sh 'echo $GOOGLE_CREDENTIALS > smooth-league-275317-eafc1a750e38.json'
-                    // Set the environment variable that the Google provider plugin recognizes
-                    sh 'export GOOGLE_APPLICATION_CREDENTIALS=${WORKSPACE}/smooth-league-275317-eafc1a750e38.json'
+                    bat 'echo %GOOGLE_CREDENTIALS% > smooth-league-275317-eafc1a750e38.json'
+                    // On Windows, setting an environment variable this way may not work. 
+                    // You might need to set this environment variable outside of the Jenkins pipeline, 
+                    // or use a different method to authenticate with GCP.
+                    bat 'set GOOGLE_APPLICATION_CREDENTIALS=%WORKSPACE%\\smooth-league-275317-eafc1a750e38.json'
                 }
             }
         }
 
         stage('Terraform Init') {
             steps {
-                sh 'terraform init'
+                bat 'terraform init'
             }
         }
 
         stage('Terraform Validate') {
             steps {
-                sh 'terraform validate'
+                bat 'terraform validate'
             }
         }
 
         stage('Terraform Plan') {
             steps {
-                sh 'terraform plan -out=tfplan'
+                bat 'terraform plan -out=tfplan'
             }
         }
 
         stage('Terraform Apply') {
             steps {
                 script {
-                    // Auto-approve for demo purposes. In a real-world scenario, you might want manual approval
-                    sh 'terraform apply -auto-approve tfplan'
+                    // Auto-approve for demo purposes.
+                    bat 'terraform apply -auto-approve tfplan'
                 }
             }
         }
@@ -54,7 +56,7 @@ pipeline {
     post {
         always {
             // Clean up. IMPORTANT: Make sure you handle state files securely and don't delete unless intended!
-            sh 'rm -f gcp_key.json'
+            bat 'del smooth-league-275317-eafc1a750e38.json'
         }
     }
 }
