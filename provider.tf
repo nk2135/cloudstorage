@@ -9,8 +9,8 @@ terraform {
 }
 
 
-provider "google" {
+/*provider "google" {
   credentials = file("C:/scripts/GCP/smooth-league-275317-2f4f661b039f.json")
   project     = "smooth-league-275317"
   region      = "us-central1"
-}
+}*/
