@@ -1,4 +1,4 @@
-# Basic Bucket Configuration
+/*# Basic Bucket Configuration
 bucket_name = "pbmdchghc001"
 location    = "US"
 storage_class = "STANDARD"
@@ -50,4 +50,4 @@ bucket_iam_bindings = {
   "roles/storage.objectViewer" = ["nk2135@gmail.com"]
 }
 
-# ... Add additional variable values as needed ...
+# ... Add additional variable values as needed ...*/
