@@ -32,5 +32,33 @@ variable "uniform_bucket_level_access" {
   type        = bool
   default     = false
 }
+variable "lifecycle_rule" {
+    description = "Lifecycle rules for the bucket"
+    type = list(object({
+        condition = object({
+            age                   = optional(number)
+            with_state            = optional(string)
+            created_before        = optional(string)
+            matches_storage_class = optional(list(string))
+        })
+        action = object({
+            type          = string
+            storage_class = optional(string)
+        })
+    }))
+    default = []
+}
+
+
+variable "cors_rules" {
+    description = "CORS rules for the bucket"
+    type = list(object({
+        origin          = list(string)
+        method          = list(string)
+        response_header = list(string)
+        max_age_seconds = number
+    }))
+    default = []
+}
 
 # ... add other variables as needed ...
