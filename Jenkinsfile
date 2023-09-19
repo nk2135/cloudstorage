@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     parameters {
-        choice(name: 'TFVARS_FILE', choices: ['cloudstorage', 'app2', 'app3'], description: 'Choose the .tfvars file to use')
+        choice(name: 'TFVARS_FILE', choices: ['cloudstorage'], description: 'Choose the .tfvars file to use')
     }
 
     environment {
