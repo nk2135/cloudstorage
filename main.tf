@@ -7,12 +7,7 @@ resource "google_storage_bucket" "main_bucket"{
         versioning {
           enabled = var.versioning
         }
-    uniform_bucket_level_access {
-        enabled = var.uniform_bucket_level_access
-    }
-
-
-    
+      
     dynamic "lifecycle_rule" {
     for_each = var.lifecycle_rule
     content {
