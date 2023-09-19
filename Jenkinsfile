@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         GOOGLE_CREDENTIALS = credentials('gcloud')  // Jenkins credential ID for GCP
-        TFVARS_FILE = "params.${params.APPLICATION_NAME}.tfvars"
+        TFVARS_FILE = "params.${APPLICATION_NAME}.tfvars"
     }
     
     parameters {
