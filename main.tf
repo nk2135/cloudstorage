@@ -7,12 +7,11 @@ resource "google_storage_bucket" "main_bucket"{
         versioning {
           enabled = var.versioning
         }
+        bucket_policy_only {
+    enabled = var.uniform_bucket_level_access
 
-}
-
-uniform_bucket_level_access = var.uniform_bucket_level_access
-
-dynamic "lifecycle_rule"{
+    }
+    dynamic "lifecycle_rule"{
     for_each = var.lifecycle_rule
     content {
         condition{
@@ -38,6 +37,13 @@ dynamic "cors"{
         max_age_seconds     = cors.value.max_age_seconds
     }
 }
+
+}
+
+
+
+
+
 
 # Additional settings like encryption,logging, etc. can be added similarly.
 
